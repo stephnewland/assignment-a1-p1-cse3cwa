@@ -35,21 +35,51 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         {/* Header */}
-        <header className="flex justify-between items-center p-4 border-b border-gray-700 bg-gray-100 dark:bg-gray-900">
+        <header className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
           <div className="flex items-center gap-8">
-            <span className="text-lg font-semibold">
+            <span className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Student No: {studentNumber}
             </span>
-            <nav className="flex gap-6 text-lg font-semibold tracking-wide">
-              <Link href="/">Home</Link>
-              <Link href="/about">About</Link>
-              <Link href="/tabs">Tabs</Link>
-              <Link href="/escape-room">Escape Room</Link>
-              <Link href="/coding-races">Coding Races</Link>
-              <Link href="/court-room">Court Room</Link>
+            <nav className="flex gap-6 text-lg font-semibold tracking-wide text-gray-800 dark:text-gray-100">
+              <Link
+                href="/"
+                className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                href="/tabs"
+                className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
+              >
+                Tabs
+              </Link>
+              <Link
+                href="/escape-room"
+                className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
+              >
+                Escape Room
+              </Link>
+              <Link
+                href="/coding-races"
+                className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
+              >
+                Coding Races
+              </Link>
+              <Link
+                href="/court-room"
+                className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
+              >
+                Court Room
+              </Link>
             </nav>
           </div>
           <ThemeToggle />

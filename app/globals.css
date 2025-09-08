@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ───────────────────────────────
    Base Reset & Font Variables
@@ -8,13 +11,6 @@
   --foreground: #171717;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 html {
@@ -195,64 +191,68 @@ header a:focus {
 /* ───────────────────────────────
    Breadcrumbs
 ──────────────────────────────── */
+/* ───────────────────────────────
+   Breadcrumbs (Text-Only Styling)
+──────────────────────────────── */
 .breadcrumbs {
-  color: #171717 !important;
-  background-color: #f9f9f9;
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-
-.breadcrumbs a {
-  color: #171717 !important;
-  text-decoration: none;
-}
-
-.breadcrumbs span.separator {
-  color: #999 !important;
-}
-
-.dark .breadcrumbs {
-  color: #f0f0f0 !important;
-}
-
-.dark .breadcrumbs a {
-  color: #f0f0f0 !important;
-}
-
-.dark .breadcrumbs span.separator {
-  color: #ccc !important;
-}
-
-.menu {
-  background-color: #f0f0f0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
   color: #171717;
 }
 
-.dark .menu {
-  background-color: #444;
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breadcrumb-link {
+  color: #171717;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover,
+.breadcrumb-link:focus {
+  text-decoration: underline;
+}
+
+.breadcrumb-current {
+  font-weight: 600;
+  color: #000000;
+}
+
+.separator {
+  color: #999;
+}
+
+/* ───────────────────────────────
+   Dark Mode Overrides
+──────────────────────────────── */
+.dark .breadcrumbs {
   color: #f0f0f0;
 }
 
-.menu a {
-  color: #171717 !important;
+.dark .breadcrumb-link {
+  color: #f0f0f0;
 }
 
-.dark .menu a {
-  color: #f0f0f0 !important;
+.dark .breadcrumb-link:hover,
+.dark .breadcrumb-link:focus {
+  text-decoration: underline;
 }
 
-.dark .menu {
-  background-color: #2a2a2a;
+.dark .breadcrumb-current {
+  color: #ffffff;
 }
 
-.breadcrumbs {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.menu {
-  border: 1px solid #ccc;
-}
-
-.dark .menu {
-  border: 1px solid #555;
+.dark .separator {
+  color: #ccc;
 }
