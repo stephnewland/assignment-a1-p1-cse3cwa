@@ -40,7 +40,7 @@ export default function RootLayout({
         {/* Header */}
         <header className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
           <div className="flex items-center gap-8">
-            <span className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            <span className="student-number text-lg font-semibold">
               Student No: {studentNumber}
             </span>
             <nav className="flex gap-6 text-lg font-semibold tracking-wide">
