@@ -1,4 +1,4 @@
-import CodingRacesContent from "../../components/CodingRacesContent";
+import CodingRacesContent from "@/components/CodingRacesContent";
 
 export const metadata = {
   title: "Coding Races",

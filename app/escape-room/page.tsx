@@ -1,4 +1,4 @@
-import EscapeRoomContent from "../../components/EscapeRoomContent";
+import EscapeRoomContent from "@/components/EscapeRoomContent";
 
 export const metadata = {
   title: "Escape Room",

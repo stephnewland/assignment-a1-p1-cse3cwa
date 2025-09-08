@@ -24,15 +24,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const studentNumber = "21993608";
+  const studentNumber = "21995308";
   const studentName = "Steph Newland";
+  const currentDate = new Date().toLocaleDateString("en-AU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <header className="flex justify-between items-center p-4 border-b border-gray-700">
+        {/* Header */}
+        <header className="flex justify-between items-center p-4 border-b border-gray-700 bg-gray-100 dark:bg-gray-900">
           <div className="flex items-center gap-8">
             <span className="text-lg font-semibold">
               Student No: {studentNumber}
@@ -49,11 +55,19 @@ export default function RootLayout({
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-col min-h-screen">{children}</main>
+        {/* Main content */}
+        <main className="flex-grow px-4 py-8">{children}</main>
 
-        <footer className="p-4 border-t border-gray-700 text-center text-sm">
-          © {new Date().getFullYear()} {studentName}, Student No:{" "}
-          {studentNumber}, {new Date().toLocaleDateString()}
+        {/* Footer */}
+        <footer
+          className="px-4 py-4 text-sm text-center text-gray-600 dark:text-gray-300 border-t border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900"
+          role="contentinfo"
+        >
+          <p>
+            &copy; {new Date().getFullYear()} {studentName} — Student No:{" "}
+            {studentNumber}
+          </p>
+          <p>{currentDate}</p>
         </footer>
       </body>
     </html>

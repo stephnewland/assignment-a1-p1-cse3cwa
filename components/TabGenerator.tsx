@@ -55,14 +55,19 @@ export default function TabGenerator() {
     const buttons = tabs
       .map(
         (tab) =>
-          `<button class="tab-button" onclick="openTab(event, 'tab-${tab.id}')">${tab.header}</button>`
+          `<button onclick="openTab(event, 'tab-${tab.id}')" style="padding:10px; margin-right:5px; cursor:pointer; border:1px solid #ccc; background-color:#f0f0f0;">
+          ${tab.header}
+        </button>`
       )
       .join("\n");
 
     const contents = tabs
       .map(
         (tab) =>
-          `<div id="tab-${tab.id}" class="tab-content"><h3>${tab.header}</h3><p>${tab.content}</p></div>`
+          `<div id="tab-${tab.id}" style="display:none; margin-top:10px;">
+          <h3>${tab.header}</h3>
+          <p>${tab.content}</p>
+        </div>`
       )
       .join("\n");
 
@@ -71,28 +76,22 @@ export default function TabGenerator() {
 <head>
   <meta charset="UTF-8">
   <title>Tabs Example</title>
-  <style>
-    .tab-button { padding: 10px; margin-right: 5px; cursor: pointer; }
-    .tab-content { display: none; margin-top: 10px; }
-    .tab-button.active { background-color: #007bff; color: white; }
-    .tab-content.active { display: block; }
-  </style>
-</head>
-<body>
-  <div class="tabs-header">${buttons}</div>
-  ${contents}
   <script>
     function openTab(evt, tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('div[id^="tab-"]').forEach(el => el.style.display = 'none');
       document.getElementById(tabId).style.display = 'block';
-      evt.currentTarget.classList.add('active');
+      evt.currentTarget.style.backgroundColor = '#007bff';
+      evt.currentTarget.style.color = 'white';
     }
     document.addEventListener('DOMContentLoaded', () => {
-      const firstBtn = document.querySelector('.tab-button');
+      const firstBtn = document.querySelector('button');
       if (firstBtn) firstBtn.click();
     });
   </script>
+</head>
+<body>
+  <div>${buttons}</div>
+  ${contents}
 </body>
 </html>`;
   };

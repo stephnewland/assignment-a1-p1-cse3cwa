@@ -1,4 +1,4 @@
-import CourtRoomContent from "../../components/CourtRoomContent";
+import CourtRoomContent from "@/components/CourtRoomContent";
 
 export const metadata = {
   title: "Court Room",

@@ -1,4 +1,4 @@
-import TabGenerator from "../../components/TabGenerator";
+import TabGenerator from "@/components/TabGenerator";
 
 export const metadata = {
   title: "Tabs",
