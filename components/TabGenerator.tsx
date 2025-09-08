@@ -34,6 +34,23 @@ export default function TabGenerator() {
     );
   };
 
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    if (e.key === "ArrowRight") {
+      const nextIndex = (index + 1) % tabs.length;
+      setActiveTabId(tabs[nextIndex].id);
+    } else if (e.key === "ArrowLeft") {
+      const prevIndex = (index - 1 + tabs.length) % tabs.length;
+      setActiveTabId(tabs[prevIndex].id);
+    } else if (e.key === "Home") {
+      setActiveTabId(tabs[0].id);
+    } else if (e.key === "End") {
+      setActiveTabId(tabs[tabs.length - 1].id);
+    }
+  };
+
   const generateHTML = () => {
     const buttons = tabs
       .map(
@@ -81,29 +98,56 @@ export default function TabGenerator() {
   };
 
   return (
-    <main className="px-4 py-8 space-y-6">
-      {/* Breadcrumbs top-left */}
+    <main
+      role="main"
+      aria-labelledby="tab-generator-heading"
+      className="px-4 py-8 space-y-6"
+    >
       <div className="text-left">
         <Breadcrumbs />
       </div>
 
-      {/* Tab editor layout */}
+      <h1 id="tab-generator-heading" className="big-title">
+        Tab Generator
+      </h1>
+
       <div className="grid grid-cols-2 gap-6">
         <div>
           <h2 className="text-xl font-bold mb-2">Tab Headers</h2>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTabId(tab.id)}
-              className={`block w-full text-left p-2 rounded ${
-                activeTabId === tab.id
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-200"
-              }`}
-            >
-              {tab.header}
-            </button>
-          ))}
+
+          {/* Screen reader instructions */}
+          <p className="sr-only" id="tab-instructions">
+            Use arrow keys to navigate between tabs. Press Home or End to jump
+            to the first or last tab.
+          </p>
+
+          <div
+            role="tablist"
+            aria-label="Tab Headers"
+            aria-orientation="vertical"
+            aria-describedby="tab-instructions"
+          >
+            {tabs.map((tab, index) => (
+              <button
+                key={tab.id}
+                role="tab"
+                id={`tab-${tab.id}-button`}
+                aria-selected={activeTabId === tab.id}
+                aria-controls={`tab-${tab.id}-panel`}
+                onClick={() => setActiveTabId(tab.id)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                tabIndex={activeTabId === tab.id ? 0 : -1}
+                className={`block w-full text-left p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+                  activeTabId === tab.id
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                {tab.header}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={addTab}
             className="mt-2 w-full p-2 bg-green-500 text-white rounded"
@@ -117,7 +161,13 @@ export default function TabGenerator() {
           {tabs.map(
             (tab) =>
               activeTabId === tab.id && (
-                <div key={tab.id} className="space-y-2">
+                <div
+                  key={tab.id}
+                  id={`tab-${tab.id}-panel`}
+                  role="tabpanel"
+                  aria-labelledby={`tab-${tab.id}-button`}
+                  className="space-y-2"
+                >
                   <input
                     type="text"
                     value={tab.header}
@@ -143,7 +193,7 @@ export default function TabGenerator() {
 
       <div>
         <h2 className="text-xl font-bold mb-2">Output HTML</h2>
-        <div className="relative">
+        <div className="relative" aria-live="polite" aria-atomic="true">
           <pre className="p-4 bg-gray-900 text-white rounded overflow-auto max-h-96">
             <code>{generateHTML()}</code>
           </pre>

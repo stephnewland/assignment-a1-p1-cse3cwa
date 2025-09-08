@@ -9,15 +9,20 @@ export default function CourtRoomContent() {
   }, []);
 
   return (
-    <main className="px-4 py-8 space-y-6">
+    <main
+      role="main"
+      aria-labelledby="court-room-heading"
+      className="px-4 py-8 space-y-6"
+    >
       {/* Breadcrumbs always top-left */}
       <div className="text-left">
         <Breadcrumbs />
       </div>
 
       <div className="flex flex-col items-center justify-center text-center min-h-[20vh] px-4 space-y-4">
-        <Breadcrumbs />
-        <h1 className="big-title">Court Room Page</h1>
+        <h1 id="court-room-heading" className="big-title">
+          Court Room Page
+        </h1>
         <h2>This page is under construction.</h2>
         <p>Please check back later for updates.</p>
       </div>
