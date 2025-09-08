@@ -193,7 +193,7 @@ header a:focus {
 ──────────────────────────────── */
 /* ───────────────────────────────
    Breadcrumbs (Text-Only Styling)
-──────────────────────────────── */
+──────────────────────────────── 
 .breadcrumbs {
   font-size: 0.875rem;
   font-weight: 500;
@@ -232,10 +232,12 @@ header a:focus {
 .separator {
   color: #999;
 }
+*/
 
 /* ───────────────────────────────
    Dark Mode Overrides
 ──────────────────────────────── */
+/*
 .dark .breadcrumbs {
   color: #f0f0f0;
 }
@@ -256,3 +258,4 @@ header a:focus {
 .dark .separator {
   color: #ccc;
 }
+*/

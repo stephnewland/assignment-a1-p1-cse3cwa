@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
         {/* Header */}
         <header className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
@@ -43,7 +43,7 @@ export default function RootLayout({
             <span className="text-lg font-semibold text-gray-800 dark:text-gray-100">
               Student No: {studentNumber}
             </span>
-            <nav className="flex gap-6 text-lg font-semibold tracking-wide text-gray-800 dark:text-gray-100">
+            <nav className="flex gap-6 text-lg font-semibold tracking-wide">
               <Link
                 href="/"
                 className="text-blue-600 dark:text-blue-300 hover:underline transition-colors"
