@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 interface Tab {
   id: number;
@@ -80,7 +81,13 @@ export default function TabGenerator() {
   };
 
   return (
-    <div className="space-y-6">
+    <main className="px-4 py-8 space-y-6">
+      {/* Breadcrumbs top-left */}
+      <div className="text-left">
+        <Breadcrumbs />
+      </div>
+
+      {/* Tab editor layout */}
       <div className="grid grid-cols-2 gap-6">
         <div>
           <h2 className="text-xl font-bold mb-2">Tab Headers</h2>
@@ -148,6 +155,6 @@ export default function TabGenerator() {
           </button>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

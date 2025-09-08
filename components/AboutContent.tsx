@@ -1,11 +1,14 @@
 "use client";
 
+import Breadcrumbs from "@/components/Breadcrumbs";
+
 export default function AboutContent() {
   return (
     <main
       aria-labelledby="about-heading"
       style={{ padding: "2rem", fontFamily: "sans-serif" }}
     >
+      <Breadcrumbs />
       <div className="flex flex-col items-center justify-center text-center min-h-[20vh] px-4 space-y-4">
         <h1 className="big-title">About Page</h1>
 
