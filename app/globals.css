@@ -1,11 +1,7 @@
 @import "tailwindcss";
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
-/* ───────────────────────────────
-   Base Reset & Font Variables
-──────────────────────────────── */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -24,9 +20,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ───────────────────────────────
-   Dark Mode Overrides
-──────────────────────────────── */
 .dark body {
   background-color: #121212;
   color: #f0f0f0;
@@ -38,11 +31,6 @@ body {
   color: #f0f0f0;
 }
 
-.dark button {
-  background-color: #333;
-  color: #fff;
-}
-
 .dark .bar {
   background-color: white;
 }
@@ -52,21 +40,6 @@ body {
   color: #f0f0f0;
 }
 
-.dark .breadcrumbs {
-  color: #f0f0f0 !important;
-}
-
-.dark .breadcrumbs span.separator {
-  color: #ccc;
-}
-
-.dark .breadcrumbs a {
-  color: #f0f0f0;
-}
-
-/* ───────────────────────────────
-   Typography & Focus Styles
-──────────────────────────────── */
 .big-title {
   font-size: 2.5rem;
   font-weight: 800;
@@ -80,119 +53,23 @@ button:focus {
   border-radius: 4px;
 }
 
-/* ───────────────────────────────
-   Header & Navigation
-──────────────────────────────── */
 header {
   background-color: #f5f5f5;
   color: #171717;
 }
-
 header a {
   color: #171717;
   text-decoration: none;
 }
-
 header a:hover,
 header a:focus {
   text-decoration: underline;
 }
-
 .nav {
   display: flex;
   justify-content: flex-end;
   position: relative;
 }
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 25px;
-  cursor: pointer;
-  z-index: 100;
-  padding: 5px;
-}
-
-.bar {
-  height: 3px;
-  width: 100%;
-  background-color: #171717;
-  transition: transform 0.3s ease;
-}
-
-/* ───────────────────────────────
-   Menu Styles
-──────────────────────────────── */
-.menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 200px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: visibility 0.3s, opacity 0.3s, transform 0.3s ease;
-  z-index: 50;
-}
-
-.menu.open {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.menu li {
-  padding: 10px;
-}
-
-.menu a {
-  color: #171717;
-  text-decoration: none;
-  display: block;
-}
-
-.menu a:hover {
-  background-color: #e0e0e0;
-}
-
-/* ───────────────────────────────
-   Responsive Navigation
-──────────────────────────────── */
-@media (min-width: 768px) {
-  .hamburger {
-    display: none;
-  }
-
-  .menu {
-    position: static;
-    flex-direction: row;
-    visibility: visible;
-    opacity: 1;
-    transform: none;
-    box-shadow: none;
-    background-color: transparent;
-  }
-
-  .menu li {
-    padding: 0 10px;
-  }
-}
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* --- SNIPPED: base and dark mode styles as before --- */
 
 /* --- Breadcrumbs --- */
 .breadcrumbs {
@@ -202,28 +79,22 @@ header a:focus {
   color: #374151; /* slate-700 */
   background: transparent;
 }
-
 .breadcrumbs a {
   color: #2563eb; /* blue-600 */
 }
-
 .breadcrumbs span[aria-current="page"] {
   color: #111827; /* slate-900, bold for current page */
   font-weight: bold;
 }
-
 .breadcrumbs span.separator {
   color: #9ca3af; /* gray-400 */
 }
-
 .dark .breadcrumbs {
   color: #e5e7eb !important; /* gray-200 */
 }
-
 .dark .breadcrumbs a {
   color: #60a5fa; /* blue-400 */
 }
-
 .dark .breadcrumbs span[aria-current="page"] {
   color: #fff;
   font-weight: bold;
@@ -237,7 +108,6 @@ header a:focus {
   color: #111827; /* slate-900 */
   font-weight: 700;
 }
-
 .dark .student-number {
   color: #fafafa; /* white */
 }
@@ -246,18 +116,31 @@ header a:focus {
 header nav a {
   color: #2563eb; /* blue-600 */
 }
-
 header nav a:hover,
 header nav a:focus {
   text-decoration: underline;
   color: #1d4ed8; /* blue-700 */
 }
-
 .dark header nav a {
   color: #60a5fa; /* blue-400 */
 }
-
 .dark header nav a:hover,
 .dark header nav a:focus {
   color: #93c5fd; /* blue-300 */
 }
+
+/* --- Theme Toggle Button --- */
+.theme-toggle-btn {
+  color: #111827 !important; /* slate-900, very dark and readable */
+}
+.dark .theme-toggle-btn {
+  color: #f3f4f6 !important; /* gray-100 */
+}
+.theme-toggle-btn:hover {
+  background-color: #f3f4f6 !important; /* gray-100 */
+}
+.dark .theme-toggle-btn:hover {
+  background-color: #1e293b !important; /* slate-800 */
+}
+
+@tailwind utilities;
