@@ -1,6 +1,4 @@
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -142,5 +140,3 @@ header nav a:focus {
 .dark .theme-toggle-btn:hover {
   background-color: #1e293b !important; /* slate-800 */
 }
-
-@tailwind utilities;

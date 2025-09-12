@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
 import "./globals.css";
-import ThemeToggle from "../components/ThemeToggle";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,79 +26,18 @@ export default function RootLayout({
 }) {
   const studentNumber = "21995308";
   const studentName = "Steph Newland";
-  const currentDate = new Date().toLocaleDateString("en-AU", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
-        {/* Header */}
-        <header className="flex justify-between items-center p-4 border-b border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900">
-          <div className="flex items-center gap-8">
-            <span className="student-number text-lg font-bold text-gray-900 dark:text-white">
-              Student No: {studentNumber}
-            </span>
-            <nav className="flex gap-6 text-lg font-semibold tracking-wide">
-              <Link
-                href="/"
-                className="text-blue-700 dark:text-blue-200 hover:text-blue-900 dark:hover:text-blue-100 hover:underline transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="text-blue-700 dark:text-blue-200 hover:text-blue-900 dark:hover:text-blue-100 hover:underline transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                href="/tabs"
-                className="text-blue-700 dark:text-blue-200 hover:text-blue-900 dark:hover:text-blue-100 hover:underline transition-colors"
-              >
-                Tabs
-              </Link>
-              <Link
-                href="/escape-room"
-                className="text-blue-700 dark:text-blue-200 hover:text-blue-900 dark:hover:text-blue-100 hover:underline transition-colors"
-              >
-                Escape Room
-              </Link>
-              <Link
-                href="/coding-races"
-                className="text-blue-700 dark:text-blue-200 hover:text-blue-900 dark:hover:text-blue-100 hover:underline transition-colors"
-              >
-                Coding Races
-              </Link>
-              <Link
-                href="/court-room"
-                className="text-blue-700 dark:text-blue-200 hover:text-blue-900 dark:hover:text-blue-100 hover:underline transition-colors"
-              >
-                Court Room
-              </Link>
-            </nav>
-          </div>
-          <ThemeToggle />
-        </header>
+        <Header studentNumber={studentNumber} />
 
         {/* Main content */}
         <main className="flex-grow px-4 py-8">{children}</main>
 
-        {/* Footer */}
-        <footer
-          className="px-4 py-4 text-sm text-center text-gray-600 dark:text-gray-300 border-t border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900"
-          role="contentinfo"
-        >
-          <p>
-            &copy; {new Date().getFullYear()} {studentName} — Student No:{" "}
-            {studentNumber}
-          </p>
-          <p>{currentDate}</p>
-        </footer>
+        <Footer studentName={studentName} studentNumber={studentNumber} />
       </body>
     </html>
   );
