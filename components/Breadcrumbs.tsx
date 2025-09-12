@@ -23,7 +23,7 @@ export default function Breadcrumbs() {
           return (
             <li key={href} className="flex items-center gap-2">
               <span className="separator text-gray-400 dark:text-gray-500">
-                /
+                &nbsp;/&nbsp;
               </span>
               {isLast ? (
                 <span
