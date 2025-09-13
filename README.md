@@ -49,10 +49,6 @@ This project is a Next.js web application that generates standalone HTML5 + Java
 - Tracks **last visited tab/page**.
 - Homepage reads cookie securely and displays last visited tab name.
 
-## AI Generated content
-
-- Microsoft CoPilot helped suggest what content was required to go in this README file.
-
 | Feature              | Implemented in File(s)                                                 |
 | -------------------- | ---------------------------------------------------------------------- |
 | Sticky Header        | `Header.tsx` + `RootLayout` padding for main content                   |
@@ -66,8 +62,9 @@ This project is a Next.js web application that generates standalone HTML5 + Java
 | Cookie Tracking      | `Header.tsx` (last tab), `Tracker.tsx`                                 |
 | Mobile Menu          | `Header.tsx` mobile toggle ( `HamburgerMenu.tsx`)                      |
 
-References Used:
-EEE References
+## References Used:
+
+IEEE References
 P. Ballard, Sams Teach Yourself JavaScript in 24 Hours. Indianapolis, IN, USA: Sams Publishing, 2020.
 
 C. Gackenheimer, Introduction to React. Berkeley, CA, USA: Apress, 2015.
@@ -79,3 +76,7 @@ D. Matuszek, Quick JavaScript. Boca Raton, FL, USA: Chapman and Hall/CRC, 2023.
 M. Simon, JavaScript for Web Developers: Understanding the Basics. Berkeley, CA, USA: Apress, 2023.
 
 S. Hoque, Full-Stack React Projects: Learn MERN stack development by building modern web apps using MongoDB, Express, React, and Node.js. 2nd ed. Birmingham, UK: Packt Publishing, 2020.
+
+## AI Generated content
+
+- Microsoft CoPilot helped suggest what content was required to go in this README file.
