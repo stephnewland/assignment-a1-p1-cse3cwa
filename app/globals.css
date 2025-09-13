@@ -1,4 +1,4 @@
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -127,9 +127,4 @@ header nav a:focus {
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-body {
-  /* ... (existing body styles) ... */
-  font-family: sans-serif;
 }
