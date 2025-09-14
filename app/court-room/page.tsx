@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 
@@ -18,11 +17,6 @@ export default function CourtRoomContent() {
 
   return (
     <>
-      {/* Breadcrumbs are outside the main container to ensure they are full width */}
-      <div className="text-left">
-        <Breadcrumbs />
-      </div>
-
       {/* The main content area is now contained and centered */}
       <main
         ref={containerRef}

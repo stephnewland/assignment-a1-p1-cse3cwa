@@ -9,6 +9,11 @@ export default function Breadcrumbs() {
   const segments = pathname.split("/").filter(Boolean);
   const breadcrumbRef = useRef<HTMLOListElement>(null);
 
+  // Conditional check to hide breadcrumbs on the home page
+  if (pathname === "/") {
+    return null;
+  }
+
   const handleKeyDown = (e: React.KeyboardEvent, href?: string) => {
     if (!breadcrumbRef.current) return;
 
@@ -53,7 +58,7 @@ export default function Breadcrumbs() {
     <nav
       aria-label="Breadcrumb navigation"
       role="navigation"
-      className="text-sm mb-4"
+      className="text-sm mb-0"
     >
       <p className="sr-only">
         Navigate breadcrumbs with arrow keys, Home, or End. Press Enter to

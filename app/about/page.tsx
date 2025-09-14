@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import { useKeyboardNavigation } from "../../hooks/useKeyboardNavigation";
 
@@ -21,10 +20,6 @@ export default function AboutContent() {
       className="min-h-screen px-4 py-8"
       ref={containerRef as React.RefObject<HTMLDivElement>}
     >
-      {/* Breadcrumbs always top-left */}
-      <div className="text-left mb-4">
-        <Breadcrumbs />
-      </div>
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-600 rounded-xl p-8 shadow-lg">
           <header className="mb-12 text-center pt-2 pb-1">

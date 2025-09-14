@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,11 @@ export default function RootLayout({
       >
         <Header studentNumber={studentNumber} />
 
-        {/* Main content - removed fixed background to allow pages to control their own backgrounds */}
+        {/* Change to a full-width container to fix the positioning */}
+        <div className="w-full px-4 py-2">
+          <Breadcrumbs />
+        </div>
+
         <main className="flex-grow">{children}</main>
 
         <Footer studentName={studentName} studentNumber={studentNumber} />

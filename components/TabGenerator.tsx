@@ -2,42 +2,6 @@
 
 import { useState, useEffect } from "react";
 
-// The Breadcrumbs component is defined here to resolve the compilation error.
-const Breadcrumbs = () => {
-  return (
-    <nav
-      className="text-gray-500 dark:text-gray-400 p-4"
-      aria-label="Breadcrumbs"
-    >
-      <ol className="list-none p-0 inline-flex space-x-2">
-        <li className="flex items-center">
-          <a
-            href="#"
-            className="text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            Home
-          </a>
-          <span className="mx-2">/</span>
-        </li>
-        <li className="flex items-center">
-          <a
-            href="#"
-            className="text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            Generator Tools
-          </a>
-          <span className="mx-2">/</span>
-        </li>
-        <li className="flex items-center">
-          <span className="text-gray-800 dark:text-gray-200 font-semibold">
-            Tab Generator
-          </span>
-        </li>
-      </ol>
-    </nav>
-  );
-};
-
 interface Tab {
   id: number;
   header: string;
@@ -260,11 +224,7 @@ ${contents}
         isDarkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900"
       }`}
     >
-      <div className="flex justify-between items-start px-4 py-8">
-        <div className="text-left">
-          <Breadcrumbs />
-        </div>
-      </div>
+      <div className="flex justify-between items-start px-4 py-8"></div>
 
       <div className="container mx-auto">
         {/* The main content card, now explicitly using isDarkMode for background color */}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import { useKeyboardNavigation } from "../../hooks/useKeyboardNavigation";
 
@@ -18,19 +17,12 @@ export default function CodingRacesContent() {
 
   return (
     <>
-      {/* Breadcrumbs are outside the main container to ensure they are full width */}
-      <div className="text-left">
-        <Breadcrumbs />
-      </div>
-
-      {/* The main content area is now contained and centered */}
       <main
         ref={containerRef}
         role="main"
         aria-labelledby="coding-races-heading"
         className="container mx-auto px-4 py-8 space-y-6"
       >
-        {/* Screen reader instructions */}
         <div className="sr-only">
           <p>
             Use arrow keys to navigate between interactive elements, Home/End to
@@ -48,7 +40,6 @@ export default function CodingRacesContent() {
             <p>Please check back later for updates.</p>
           </div>
 
-          {/* Feature preview section */}
           <section
             aria-labelledby="preview-heading"
             className="mt-8 space-y-4 p-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg border"
@@ -92,7 +83,6 @@ export default function CodingRacesContent() {
             </div>
           </section>
 
-          {/* Interactive navigation section */}
           <section
             aria-labelledby="navigation-heading"
             className="mt-8 space-y-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg border"
@@ -154,7 +144,6 @@ export default function CodingRacesContent() {
             </div>
           </section>
 
-          {/* Beta signup section */}
           <section
             aria-labelledby="beta-heading"
             className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border border-green-200 dark:border-green-700 rounded-lg"
