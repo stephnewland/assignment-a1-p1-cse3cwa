@@ -64,56 +64,68 @@ export default function TabGenerator() {
   };
 
   const generateHTML = () => {
-    const buttonStyle = `
-      padding:10px 15px; 
-      cursor:pointer; 
-      border:1px solid #ccc;
-      background-color:#f3f4f6; 
-      color:#111827;
-      border-radius:6px; 
-      font-weight:500; 
-      margin-right:8px;
-    `;
-    const activeButtonStyle = `
-      ${buttonStyle}
-      background-color:#e5e7eb; 
-      box-shadow:2px 2px 4px rgba(0,0,0,0.1);
-    `;
-    const contentStyle = `
-      display:none; 
-      padding:20px; 
-      border:1px solid #e2e8f0; 
-      border-radius:6px; 
-      background-color:white; 
-      margin-top:16px;
-    `;
+    const styleBlock = `
+<style>
+    .tab-button {
+        padding: 10px 15px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #f3f4f6;
+        color: #111827;
+        border-radius: 6px;
+        font-weight: 500;
+        margin-right: 8px;
+    }
+    .tab-button.active {
+        background-color: #e5e7eb;
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    .tab-content {
+        display: none;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        background-color: white;
+        margin-top: 16px;
+    }
+</style>
+`;
 
     const buttons = tabs
       .map(
         (t) =>
-          `<button style="${buttonStyle}" onclick="openTab(event,'tab-${t.id}')" data-tab-id="tab-${t.id}">${t.header}</button>`
+          `<button class="tab-button" onclick="openTab(this, 'tab-${t.id}')" data-tab-id="tab-${t.id}">${t.header}</button>`
       )
       .join("\n");
 
     const contents = tabs
       .map(
         (t) =>
-          `<div id="tab-${t.id}" style="${contentStyle}"><h3>${t.header}</h3><p>${t.content}</p></div>`
+          `<div id="tab-${t.id}" class="tab-content"><h3>${t.header}</h3><p>${t.content}</p></div>`
       )
       .join("\n");
 
     const script = `
 <script>
 function openTab(evt, tabId) {
-  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display='none');
-  document.querySelectorAll('button[data-tab-id]').forEach(el => el.setAttribute('style', '${buttonStyle}'));
-  const activeContent = document.getElementById(tabId);
-  if(activeContent) activeContent.style.display='block';
-  if(evt && evt.currentTarget) evt.currentTarget.setAttribute('style', '${activeButtonStyle}');
+    document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+    
+    const activeContent = document.getElementById(tabId);
+    if (activeContent) {
+        activeContent.style.display = 'block';
+    }
+    
+    if (evt) {
+        evt.classList.add('active');
+    }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
-  const firstButton = document.querySelector('button[data-tab-id]');
-  if(firstButton) openTab({currentTarget:firstButton}, firstButton.getAttribute('data-tab-id'));
+    const firstButton = document.querySelector('.tab-button');
+    if (firstButton) {
+        openTab(firstButton, firstButton.getAttribute('data-tab-id'));
+    }
 });
 </script>
 `;
@@ -123,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <head>
 <meta charset="UTF-8">
 <title>Tabs Example</title>
+${styleBlock}
 </head>
 <body>
 <div>${buttons}</div>
