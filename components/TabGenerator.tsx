@@ -15,26 +15,14 @@ export default function TabGenerator() {
   const [activeTabId, setActiveTabId] = useState(1);
   const [showHtml, setShowHtml] = useState(false);
   const [copied, setCopied] = useState(false);
-
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    document.title = "Tab Generator - CSE3CWA";
     setIsDarkMode(document.documentElement.classList.contains("dark"));
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (
-          mutation.type === "attributes" &&
-          mutation.attributeName === "class"
-        ) {
-          setIsDarkMode(document.documentElement.classList.contains("dark"));
-        }
-      });
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
     });
-
     observer.observe(document.documentElement, { attributes: true });
-
     return () => observer.disconnect();
   }, []);
 
@@ -47,20 +35,12 @@ export default function TabGenerator() {
     setActiveTabId(newId);
   };
 
-  const removeTab = (idToRemove: number) => {
-    const updatedTabs = tabs.filter((tab) => tab.id !== idToRemove);
+  const removeTab = (id: number) => {
+    const updatedTabs = tabs.filter((t) => t.id !== id);
     setTabs(updatedTabs);
-
-    if (activeTabId === idToRemove) {
-      if (updatedTabs.length > 0) {
-        const removedIndex = tabs.findIndex((tab) => tab.id === idToRemove);
-        const newActiveTab =
-          removedIndex > 0 ? updatedTabs[removedIndex - 1] : updatedTabs[0];
-        setActiveTabId(newActiveTab ? newActiveTab.id : 0);
-      } else {
-        setActiveTabId(0);
-      }
-    }
+    if (activeTabId === id && updatedTabs.length > 0)
+      setActiveTabId(updatedTabs[0].id);
+    else if (updatedTabs.length === 0) setActiveTabId(0);
   };
 
   const updateTab = (
@@ -68,29 +48,21 @@ export default function TabGenerator() {
     field: "header" | "content",
     value: string
   ) => {
-    setTabs(
-      tabs.map((tab) => (tab.id === id ? { ...tab, [field]: value } : tab))
-    );
+    setTabs(tabs.map((t) => (t.id === id ? { ...t, [field]: value } : t)));
   };
 
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
     index: number
   ) => {
-    if (e.key === "ArrowRight") {
-      const nextIndex = (index + 1) % tabs.length;
-      setActiveTabId(tabs[nextIndex].id);
-    } else if (e.key === "ArrowLeft") {
-      const prevIndex = (index - 1 + tabs.length) % tabs.length;
-      setActiveTabId(tabs[prevIndex].id);
-    } else if (e.key === "Home") {
-      setActiveTabId(tabs[0].id);
-    } else if (e.key === "End") {
-      setActiveTabId(tabs[tabs.length - 1].id);
-    }
+    if (e.key === "ArrowRight")
+      setActiveTabId(tabs[(index + 1) % tabs.length].id);
+    else if (e.key === "ArrowLeft")
+      setActiveTabId(tabs[(index - 1 + tabs.length) % tabs.length].id);
+    else if (e.key === "Home") setActiveTabId(tabs[0].id);
+    else if (e.key === "End") setActiveTabId(tabs[tabs.length - 1].id);
   };
 
-  // ✅ Inline-only generated HTML
   const generateHTML = () => {
     const buttonStyle = `
       padding:10px 15px; 
@@ -102,13 +74,11 @@ export default function TabGenerator() {
       font-weight:500; 
       margin-right:8px;
     `;
-
     const activeButtonStyle = `
       ${buttonStyle}
       background-color:#e5e7eb; 
       box-shadow:2px 2px 4px rgba(0,0,0,0.1);
     `;
-
     const contentStyle = `
       display:none; 
       padding:20px; 
@@ -120,44 +90,31 @@ export default function TabGenerator() {
 
     const buttons = tabs
       .map(
-        (tab) => `
-          <button 
-            style="${buttonStyle}" 
-            onclick="openTab(event, 'tab-${tab.id}')"
-            data-tab-id="tab-${tab.id}">
-            ${tab.header}
-          </button>
-        `
+        (t) =>
+          `<button style="${buttonStyle}" onclick="openTab(event,'tab-${t.id}')" data-tab-id="tab-${t.id}">${t.header}</button>`
       )
       .join("\n");
 
     const contents = tabs
       .map(
-        (tab) => `
-          <div id="tab-${tab.id}" style="${contentStyle}">
-            <h3>${tab.header}</h3>
-            <p>${tab.content}</p>
-          </div>
-        `
+        (t) =>
+          `<div id="tab-${t.id}" style="${contentStyle}"><h3>${t.header}</h3><p>${t.content}</p></div>`
       )
       .join("\n");
 
-    const scriptForHTML = `
+    const script = `
 <script>
-  function openTab(evt, tabId) {
-    document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('button[data-tab-id]').forEach(el => el.setAttribute('style', '${buttonStyle}'));
-    const activeContent = document.getElementById(tabId);
-    if(activeContent) activeContent.style.display = 'block';
-    if(evt && evt.currentTarget) evt.currentTarget.setAttribute('style', '${activeButtonStyle}');
-  }
-  document.addEventListener('DOMContentLoaded', () => {
-    const firstButton = document.querySelector('button[data-tab-id]');
-    if(firstButton) {
-      const firstTabId = firstButton.getAttribute('data-tab-id');
-      if(firstTabId) openTab({ currentTarget: firstButton }, firstTabId);
-    }
-  });
+function openTab(evt, tabId) {
+  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display='none');
+  document.querySelectorAll('button[data-tab-id]').forEach(el => el.setAttribute('style', '${buttonStyle}'));
+  const activeContent = document.getElementById(tabId);
+  if(activeContent) activeContent.style.display='block';
+  if(evt && evt.currentTarget) evt.currentTarget.setAttribute('style', '${activeButtonStyle}');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const firstButton = document.querySelector('button[data-tab-id]');
+  if(firstButton) openTab({currentTarget:firstButton}, firstButton.getAttribute('data-tab-id'));
+});
 </script>
 `;
 
@@ -170,20 +127,19 @@ export default function TabGenerator() {
 <body>
 <div>${buttons}</div>
 ${contents}
-${scriptForHTML}
+${script}
 </body>
 </html>`;
   };
 
-  const copyToClipboard = () => {
-    const htmlCode = generateHTML();
-    const tempTextarea = document.createElement("textarea");
-    tempTextarea.value = htmlCode;
-    document.body.appendChild(tempTextarea);
-    document.execCommand("copy");
-    document.body.removeChild(tempTextarea);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(generateHTML());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
   };
 
   return (
@@ -194,7 +150,6 @@ ${scriptForHTML}
     >
       <div className="container mx-auto p-8">
         <h1
-          id="tab-generator-heading"
           className={`text-5xl font-bold mb-8 text-center ${
             isDarkMode ? "text-gray-100" : "text-gray-900"
           }`}
@@ -202,17 +157,12 @@ ${scriptForHTML}
           Tab Generator
         </h1>
 
-        {/* Main content constrained */}
-        <div
-          role="main"
-          aria-labelledby="tab-generator-heading"
-          className="max-w-4xl mx-auto space-y-8"
-        >
+        <div role="main" className="w-full mx-auto space-y-8">
           {/* Grid Panels */}
           <div className="grid gap-8 md:grid-cols-2">
             {/* Left Panel */}
             <div
-              className={`p-6 rounded-lg shadow-sm border flex flex-col ${
+              className={`p-6 rounded-lg shadow-sm border flex flex-col w-full flex-1 ${
                 isDarkMode ? "bg-gray-900" : "bg-white"
               }`}
             >
@@ -226,45 +176,40 @@ ${scriptForHTML}
               <div
                 role="tablist"
                 aria-label="Tab Headers"
-                aria-orientation="horizontal"
-                className="flex flex-col space-y-2 flex-1 w-full"
+                className="flex flex-col space-y-2"
               >
-                {tabs.map((tab, index) => (
-                  <button
-                    key={tab.id}
-                    role="tab"
-                    id={`tab-${tab.id}-button`}
-                    aria-selected={activeTabId === tab.id}
-                    aria-controls={`tab-${tab.id}-panel`}
-                    onClick={() => setActiveTabId(tab.id)}
-                    onKeyDown={(e) => handleKeyDown(e, index)}
-                    tabIndex={activeTabId === tab.id ? 0 : -1}
-                    className={`py-2 px-4 w-full rounded-md text-sm font-medium border ${
-                      activeTabId === tab.id
-                        ? "bg-blue-500 text-white"
-                        : isDarkMode
-                        ? "bg-gray-700 text-gray-300"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {tab.header}
+                {tabs.map((tab, idx) => (
+                  <div key={tab.id} className="flex items-center space-x-2">
+                    <button
+                      role="tab"
+                      aria-selected={activeTabId === tab.id}
+                      onClick={() => setActiveTabId(tab.id)}
+                      onKeyDown={(e) => handleKeyDown(e, idx)}
+                      tabIndex={activeTabId === tab.id ? 0 : -1}
+                      className={`py-2 px-4 w-full rounded-md text-sm font-medium border ${
+                        activeTabId === tab.id
+                          ? "bg-blue-500 text-white"
+                          : isDarkMode
+                          ? "bg-gray-700 text-gray-300"
+                          : "bg-gray-100 text-gray-800"
+                      }`}
+                    >
+                      {tab.header}
+                    </button>
                     {tabs.length > 1 && (
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          removeTab(tab.id);
-                        }}
-                        aria-label={`Remove tab ${tab.header}`}
-                        className="ml-2 text-xs"
+                        onClick={() => removeTab(tab.id)}
+                        aria-label={`Remove ${tab.header}`}
+                        className="text-xs"
                       >
                         X
                       </button>
                     )}
-                  </button>
+                  </div>
                 ))}
                 <button
                   onClick={addTab}
-                  className="py-2 px-4 border rounded-md"
+                  className="py-2 px-4 border rounded-md mt-2"
                 >
                   ➕ Add Tab
                 </button>
@@ -273,7 +218,7 @@ ${scriptForHTML}
 
             {/* Right Panel */}
             <div
-              className={`p-6 rounded-lg shadow-sm border flex flex-col ${
+              className={`p-6 rounded-lg shadow-sm border flex flex-col w-full flex-1 ${
                 isDarkMode ? "bg-gray-900" : "bg-white"
               }`}
             >
@@ -285,9 +230,9 @@ ${scriptForHTML}
                 Edit Tab Content
               </h2>
               {tabs
-                .filter((tab) => tab.id === activeTabId)
+                .filter((t) => t.id === activeTabId)
                 .map((tab) => (
-                  <div key={tab.id} className="space-y-3 flex-1 flex flex-col">
+                  <div key={tab.id} className="space-y-3 flex flex-col">
                     <input
                       type="text"
                       value={tab.header}
@@ -312,7 +257,7 @@ ${scriptForHTML}
 
           {/* Generated HTML */}
           <div
-            className={`p-6 rounded-lg shadow-sm border ${
+            className={`p-6 rounded-lg shadow-sm border w-full ${
               isDarkMode ? "bg-gray-900" : "bg-white"
             }`}
           >
@@ -326,17 +271,25 @@ ${scriptForHTML}
               </button>
             </div>
             {showHtml && (
-              <div className="relative">
+              <div>
                 <pre className="p-4 rounded-lg overflow-auto max-h-96 text-sm font-mono leading-relaxed border">
                   <code>{generateHTML()}</code>
                 </pre>
-                <button
-                  onClick={copyToClipboard}
-                  className="absolute bottom-4 right-4 p-2 border rounded-md"
-                  title="Copy HTML to clipboard"
-                >
-                  {copied ? "Copied!" : "📋 Copy"}
-                </button>
+                <div className="flex justify-end space-x-2 mt-2">
+                  <button
+                    onClick={copyToClipboard}
+                    className="p-2 border rounded-md"
+                    title="Copy HTML to clipboard"
+                  >
+                    {copied ? "Copied!" : "📋 Copy"}
+                  </button>
+                  <div
+                    aria-live="polite"
+                    className="text-green-500 self-center"
+                  >
+                    {copied ? "Copied to clipboard!" : ""}
+                  </div>
+                </div>
               </div>
             )}
           </div>
