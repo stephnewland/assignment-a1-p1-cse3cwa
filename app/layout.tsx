@@ -30,14 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen text-gray-900 dark:text-gray-100 transition-colors duration-300`}
       >
         <Header studentNumber={studentNumber} />
 
-        {/* Main content */}
-        <main className="flex-grow px-4 py-8 bg-gray-50 dark:bg-gray-900">
-          {children}
-        </main>
+        {/* Main content - removed fixed background to allow pages to control their own backgrounds */}
+        <main className="flex-grow">{children}</main>
 
         <Footer studentName={studentName} studentNumber={studentNumber} />
       </body>

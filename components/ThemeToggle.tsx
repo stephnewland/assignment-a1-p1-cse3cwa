@@ -13,8 +13,8 @@ export default function ThemeToggle() {
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
-      const isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
 
+      const isDark = savedTheme === "dark" || (!savedTheme && prefersDark);
       setIsDarkMode(isDark);
       document.documentElement.classList.toggle("dark", isDark);
     }
@@ -27,6 +27,7 @@ export default function ThemeToggle() {
     localStorage.setItem("theme", newMode ? "dark" : "light");
   };
 
+  // Do not render anything until the component has mounted and read the theme
   if (!mounted) return null;
 
   return (

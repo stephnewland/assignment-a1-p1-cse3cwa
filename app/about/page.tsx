@@ -18,33 +18,34 @@ export default function AboutContent() {
 
   return (
     <div
-      className="min-h-screen bg-gray-50"
+      className="min-h-screen px-4 py-8"
       ref={containerRef as React.RefObject<HTMLDivElement>}
     >
       {/* Breadcrumbs always top-left */}
-      <div className="text-left">
+      <div className="text-left mb-4">
         <Breadcrumbs />
       </div>
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <header className="mb-12 text-center">
-            <h1 className="text-5xl font-bold text-gray-900 mb-4">
+      <div className="container mx-auto">
+        <div className="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-600 rounded-xl p-8 shadow-lg">
+          <header className="mb-12 text-center pt-2 pb-1">
+            <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-200 mb-4">
               About CSE3CWA
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
+
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
               A comprehensive web application demonstrating modern full-stack
               development principles and practices.
             </p>
 
             {/* Personal Information */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 max-w-md mx-auto mb-8">
+            <div className="bg-blue-50 dark:bg-blue-900/30 border dark:border-blue-800 rounded-lg p-6 max-w-md mx-auto mb-8">
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
                 Developer Information
               </h2>
-              <p className="text-lg text-gray-700 dark:text-gray-300">
+              <p className="text-lg text-gray-700 dark:text-gray-200">
                 <strong>Name:</strong> Steph Newland
               </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300">
+              <p className="text-lg text-gray-700 dark:text-gray-200">
                 <strong>Student Number:</strong> 21993608
               </p>
             </div>
@@ -52,13 +53,13 @@ export default function AboutContent() {
 
           <div className="grid gap-8 md:grid-cols-2">
             <div
-              className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
+              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
               tabIndex={0}
             >
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center mr-4">
                   <svg
-                    className="w-6 h-6 text-blue-600"
+                    className="w-6 h-6 text-blue-600 dark:text-blue-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -71,11 +72,11 @@ export default function AboutContent() {
                     />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-800">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
                   Project Overview
                 </h2>
               </div>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 CSE3CWA represents a modern approach to web development,
                 incorporating cutting-edge technologies and best practices to
                 create an engaging, accessible, and performant user experience.
@@ -83,13 +84,13 @@ export default function AboutContent() {
             </div>
 
             <div
-              className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
+              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300"
               tabIndex={0}
             >
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                <div className="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-center justify-center mr-4">
                   <svg
-                    className="w-6 h-6 text-green-600"
+                    className="w-6 h-6 text-green-600 dark:text-green-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -102,11 +103,11 @@ export default function AboutContent() {
                     />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-800">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
                   Key Features
                 </h2>
               </div>
-              <ul className="text-gray-600 space-y-2">
+              <ul className="text-gray-600 dark:text-gray-300 space-y-2">
                 <li className="flex items-center">
                   <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
                   Responsive design across all devices
@@ -128,13 +129,13 @@ export default function AboutContent() {
           </div>
 
           <div
-            className="bg-white rounded-lg shadow-lg p-8 mt-8 hover:shadow-xl transition-shadow duration-300"
+            className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8 mt-8 hover:shadow-xl transition-shadow duration-300"
             tabIndex={0}
           >
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-lg flex items-center justify-center mr-4">
                 <svg
-                  className="w-6 h-6 text-purple-600"
+                  className="w-6 h-6 text-purple-600 dark:text-purple-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -147,35 +148,43 @@ export default function AboutContent() {
                   />
                 </svg>
               </div>
-              <h2 className="text-3xl font-semibold text-gray-800">
+              <h2 className="text-3xl font-semibold text-gray-800 dark:text-gray-200">
                 Technology Stack
               </h2>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600 mb-2">
+              <div className="text-center p-4 bg-gray-50 dark:bg-gray-600 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                   React
                 </div>
-                <p className="text-sm text-gray-600">Frontend Framework</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Frontend Framework
+                </p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-black mb-2">
+              <div className="text-center p-4 bg-gray-50 dark:bg-gray-600 rounded-lg">
+                <div className="text-2xl font-bold text-black dark:text-white mb-2">
                   Next.js
                 </div>
-                <p className="text-sm text-gray-600">Full-stack Framework</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Full-stack Framework
+                </p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-500 mb-2">
+              <div className="text-center p-4 bg-gray-50 dark:bg-gray-600 rounded-lg">
+                <div className="text-2xl font-bold text-blue-500 dark:text-blue-400 mb-2">
                   TypeScript
                 </div>
-                <p className="text-sm text-gray-600">Type Safety</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Type Safety
+                </p>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-teal-500 mb-2">
+              <div className="text-center p-4 bg-gray-50 dark:bg-gray-600 rounded-lg">
+                <div className="text-2xl font-bold text-teal-500 dark:text-teal-400 mb-2">
                   Tailwind
                 </div>
-                <p className="text-sm text-gray-600">Styling</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Styling
+                </p>
               </div>
             </div>
           </div>
@@ -185,10 +194,10 @@ export default function AboutContent() {
             aria-labelledby="video-heading"
             className="w-full mx-auto space-y-2 mt-8"
           >
-            <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
               <h2
                 id="video-heading"
-                className="text-3xl font-semibold text-gray-800 mb-6 text-center"
+                className="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-6 text-center"
               >
                 Watch the Video Tutorial
               </h2>
@@ -209,7 +218,7 @@ export default function AboutContent() {
                   Your browser does not support the video tag.
                 </video>
               </div>
-              <p className="text-gray-600 text-center max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl mx-auto">
                 This video demonstrates how to use the Tab Generator to create
                 accessible HTML5 tab structures that can be deployed directly to
                 Moodle LMS.
