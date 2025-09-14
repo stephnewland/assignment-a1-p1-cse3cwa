@@ -24,7 +24,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const studentNumber = "21995308";
+  const studentNumber = "21993608";
   const studentName = "Steph Newland";
 
   return (
@@ -35,7 +35,9 @@ export default function RootLayout({
         <Header studentNumber={studentNumber} />
 
         {/* Main content */}
-        <main className="flex-grow px-4 py-8">{children}</main>
+        <main className="flex-grow px-4 py-8 bg-gray-50 dark:bg-gray-900">
+          {children}
+        </main>
 
         <Footer studentName={studentName} studentNumber={studentNumber} />
       </body>

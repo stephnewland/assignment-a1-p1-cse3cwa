@@ -31,10 +31,23 @@ export default function AboutContent() {
             <h1 className="text-5xl font-bold text-gray-900 mb-4">
               About CSE3CWA
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
               A comprehensive web application demonstrating modern full-stack
               development principles and practices.
             </p>
+
+            {/* Personal Information */}
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 max-w-md mx-auto mb-8">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                Developer Information
+              </h2>
+              <p className="text-lg text-gray-700 dark:text-gray-300">
+                <strong>Name:</strong> Steph Newland
+              </p>
+              <p className="text-lg text-gray-700 dark:text-gray-300">
+                <strong>Student Number:</strong> 21993608
+              </p>
+            </div>
           </header>
 
           <div className="grid gap-8 md:grid-cols-2">
@@ -167,63 +180,42 @@ export default function AboutContent() {
             </div>
           </div>
 
-          <div
-            className="bg-white rounded-lg shadow-lg p-8 mt-8 hover:shadow-xl transition-shadow duration-300"
-            tabIndex={0}
+          {/* Video Tutorial Section */}
+          <section
+            aria-labelledby="video-heading"
+            className="w-full mx-auto space-y-2 mt-8"
           >
-            <div className="flex items-center mb-6">
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-                <svg
-                  className="w-6 h-6 text-orange-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-3xl font-semibold text-gray-800">
-                Development Philosophy
+            <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+              <h2
+                id="video-heading"
+                className="text-3xl font-semibold text-gray-800 mb-6 text-center"
+              >
+                Watch the Video Tutorial
               </h2>
+              <div
+                className="w-full rounded-lg shadow-md overflow-hidden mx-auto"
+                style={{
+                  maxWidth: "700px",
+                  aspectRatio: "16 / 9",
+                  marginBottom: "2rem",
+                }}
+              >
+                <video
+                  controls
+                  className="w-full h-full"
+                  aria-label="Video tutorial on how to use this website"
+                >
+                  <source src="/demo.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <p className="text-gray-600 text-center max-w-2xl mx-auto">
+                This video demonstrates how to use the Tab Generator to create
+                accessible HTML5 tab structures that can be deployed directly to
+                Moodle LMS.
+              </p>
             </div>
-
-            <p className="text-gray-600 leading-relaxed mb-6">
-              This project emphasizes clean code architecture, user experience
-              design, and accessibility standards. Every component is built with
-              performance and maintainability in mind, following modern
-              development best practices and industry standards.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <h3 className="font-semibold text-gray-800 mb-2">
-                  User-Centric
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Designing with the end user experience as the primary focus
-                </p>
-              </div>
-              <div className="text-center">
-                <h3 className="font-semibold text-gray-800 mb-2">Scalable</h3>
-                <p className="text-sm text-gray-600">
-                  Built to grow and adapt to changing requirements
-                </p>
-              </div>
-              <div className="text-center">
-                <h3 className="font-semibold text-gray-800 mb-2">
-                  Maintainable
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Clean, documented code that's easy to understand and modify
-                </p>
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
