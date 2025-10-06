@@ -156,7 +156,8 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
             ref={hamburgerRef}
             onClick={toggleMenu}
             onKeyDown={handleHamburgerKeyDown}
-            className={`${styles.hamburgerIcon} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded`}
+            className={`p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+              bg-gray-200 dark:bg-gray-400 text-gray-800 dark:text-gray-100`}
             role="button"
             tabIndex={0}
             aria-label={isMenuOpen ? "Close mobile menu" : "Open mobile menu"}
@@ -167,6 +168,7 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
             <div className={isMenuOpen ? styles.barOpen : styles.bar}></div>
             <div className={isMenuOpen ? styles.barOpen : styles.bar}></div>
           </div>
+
           <ThemeToggle />
         </div>
       </div>

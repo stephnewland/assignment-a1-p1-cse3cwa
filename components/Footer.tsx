@@ -28,7 +28,7 @@ export default function Footer({
 
   return (
     <footer
-      className="px-4 py-2 text-sm flex flex-col items-center text-gray-600 dark:text-gray-300 border-t border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900"
+      className="px-4 py-2 text-sm flex flex-col items-center border-t border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-300 transition-colors"
       role="contentinfo"
       aria-label="Site footer"
     >
@@ -36,9 +36,13 @@ export default function Footer({
       {!isHomePage && (
         <Link
           href="/"
-          className="mt-2 mb-2 bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          onKeyDown={handleHomeKeyDown}
-          aria-label="Return to home page"
+          className="
+            py-2 px-4 rounded border
+            bg-gray-100 text-gray-900       /* light mode */
+            hover:bg-gray-500              /* light mode hover */
+            transition-colors duration-200
+            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+          "
         >
           Home
         </Link>
