@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import Navbar from "./Navbar";
 import styles from "./Header.module.css";
 import { useState, useRef, useEffect } from "react";
 
@@ -20,13 +20,8 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
     { href: "/court-room", label: "Court Room" },
   ];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   const handleNavKeyDown = (
     e: React.KeyboardEvent,
@@ -44,19 +39,13 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
     switch (e.key) {
       case "ArrowRight":
         e.preventDefault();
-        if (currentIndex < linksArray.length - 1) {
-          linksArray[currentIndex + 1].focus();
-        } else {
-          linksArray[0].focus(); // Wrap to first
-        }
+        linksArray[(currentIndex + 1) % linksArray.length].focus();
         break;
       case "ArrowLeft":
         e.preventDefault();
-        if (currentIndex > 0) {
-          linksArray[currentIndex - 1].focus();
-        } else {
-          linksArray[linksArray.length - 1].focus(); // Wrap to last
-        }
+        linksArray[
+          (currentIndex - 1 + linksArray.length) % linksArray.length
+        ].focus();
         break;
       case "Home":
         e.preventDefault();
@@ -82,7 +71,6 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
       case " ":
         e.preventDefault();
         toggleMenu();
-        // Focus first mobile nav item when opening
         if (!isMenuOpen) {
           setTimeout(() => {
             const firstLink = mobileNavRef.current?.querySelector(
@@ -101,7 +89,7 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
     }
   };
 
-  // Close mobile menu on Escape key globally
+  // Global escape listener
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -109,7 +97,6 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
         hamburgerRef.current?.focus();
       }
     };
-
     document.addEventListener("keydown", handleGlobalKeyDown);
     return () => document.removeEventListener("keydown", handleGlobalKeyDown);
   }, [isMenuOpen]);
@@ -125,33 +112,14 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
         <p>Mobile menu: Press Escape to close menu.</p>
       </div>
 
-      {/* Desktop Navigation */}
-      <nav
-        ref={navRef}
-        className={styles.nav}
-        role="navigation"
-        aria-label="Main navigation"
-      >
-        {navigationItems.map((item, index) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`${styles.navLink} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1`}
-            onKeyDown={(e) => handleNavKeyDown(e, true)}
-            tabIndex={0}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-
-      {/* Top row with student number and controls */}
-      <div className={`${styles.topRow} px-8 pb-2`}>
+      {/* Top row with proper padding */}
+      <div className={`${styles.topRow} px-8 pt-2 pb-2`}>
         <span className={styles.studentNumber}>
           Student No: {studentNumber}
         </span>
 
         <div className={styles.topRightControls}>
+          {/* Keep hamburger to the far right */}
           <div
             ref={hamburgerRef}
             onClick={toggleMenu}
@@ -173,30 +141,17 @@ export default function Header({ studentNumber }: { studentNumber: string }) {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <nav
-        ref={mobileNavRef}
-        id="mobile-navigation"
-        className={`${styles.mobileMenu} ${
-          isMenuOpen ? styles.mobileMenuOpen : ""
-        }`}
-        role="navigation"
-        aria-label="Mobile navigation"
-        aria-hidden={!isMenuOpen}
-      >
-        {navigationItems.map((item, index) => (
-          <Link
-            key={`mobile-${item.href}`}
-            href={item.href}
-            className={`${styles.navLink} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1`}
-            onClick={closeMenu}
-            onKeyDown={(e) => handleNavKeyDown(e, false)}
-            tabIndex={isMenuOpen ? 0 : -1}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+      {/* Navbar now only handles nav links & mobile menu */}
+      <Navbar
+        navigationItems={navigationItems}
+        isMenuOpen={isMenuOpen}
+        //toggleMenu={toggleMenu}
+        closeMenu={closeMenu}
+        handleNavKeyDown={handleNavKeyDown}
+        //handleHamburgerKeyDown={handleHamburgerKeyDown}
+        //hamburgerRef={hamburgerRef}
+        mobileNavRef={mobileNavRef}
+      />
     </header>
   );
 }
