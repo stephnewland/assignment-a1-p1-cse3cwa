@@ -183,7 +183,7 @@ ${script}
             isDarkMode ? "text-gray-100" : "text-gray-900"
           }`}
         >
-          Tab Generator
+          a Tab Generator
         </h1>
 
         {/* Demo Preset Selector */}
