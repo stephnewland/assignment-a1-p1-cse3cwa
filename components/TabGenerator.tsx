@@ -9,10 +9,24 @@ interface Tab {
 }
 
 export default function TabGenerator() {
-  const [tabs, setTabs] = useState<Tab[]>([
-    { id: 1, header: "Step 1", content: "Step 1 Content" },
-  ]);
-  const [activeTabId, setActiveTabId] = useState(1);
+  const demoPresets: Record<number, Tab[]> = {
+    1: [{ id: 1, header: "Step 1", content: "Step 1 Content" }],
+    3: [
+      { id: 1, header: "Step 1", content: "Step 1 Content" },
+      { id: 2, header: "Step 2", content: "Step 2 Content" },
+      { id: 3, header: "Step 3", content: "Step 3 Content" },
+    ],
+    5: [
+      { id: 1, header: "Step 1", content: "Step 1 Content" },
+      { id: 2, header: "Step 2", content: "Step 2 Content" },
+      { id: 3, header: "Step 3", content: "Step 3 Content" },
+      { id: 4, header: "Step 4", content: "Step 4 Content" },
+      { id: 5, header: "Step 5", content: "Step 5 Content" },
+    ],
+  };
+
+  const [tabs, setTabs] = useState<Tab[]>([]);
+  const [activeTabId, setActiveTabId] = useState<number | null>(null);
   const [showHtml, setShowHtml] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -28,19 +42,19 @@ export default function TabGenerator() {
 
   const addTab = () => {
     const newId = tabs.length > 0 ? Math.max(...tabs.map((t) => t.id)) + 1 : 1;
-    setTabs([
-      ...tabs,
-      { id: newId, header: `Step ${newId}`, content: `Step ${newId} Content` },
-    ]);
+    const newTab = {
+      id: newId,
+      header: `Step ${newId}`,
+      content: `Step ${newId} Content`,
+    };
+    setTabs([...tabs, newTab]);
     setActiveTabId(newId);
   };
 
   const removeTab = (id: number) => {
     const updatedTabs = tabs.filter((t) => t.id !== id);
     setTabs(updatedTabs);
-    if (activeTabId === id && updatedTabs.length > 0)
-      setActiveTabId(updatedTabs[0].id);
-    else if (updatedTabs.length === 0) setActiveTabId(0);
+    if (activeTabId === id) setActiveTabId(updatedTabs[0]?.id ?? null);
   };
 
   const updateTab = (
@@ -55,6 +69,7 @@ export default function TabGenerator() {
     e: React.KeyboardEvent<HTMLButtonElement>,
     index: number
   ) => {
+    if (!tabs.length) return;
     if (e.key === "ArrowRight")
       setActiveTabId(tabs[(index + 1) % tabs.length].id);
     else if (e.key === "ArrowLeft")
@@ -66,28 +81,28 @@ export default function TabGenerator() {
   const generateHTML = () => {
     const styleBlock = `
 <style>
-    .tab-button {
-        padding: 10px 15px;
-        cursor: pointer;
-        border: 1px solid #ccc;
-        background-color: #f3f4f6;
-        color: #111827;
-        border-radius: 6px;
-        font-weight: 500;
-        margin-right: 8px;
-    }
-    .tab-button.active {
-        background-color: #e5e7eb;
-        box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    .tab-content {
-        display: none;
-        padding: 20px;
-        border: 1px solid #e2e8f0;
-        border-radius: 6px;
-        background-color: white;
-        margin-top: 16px;
-    }
+.tab-button {
+  padding: 10px 15px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #f3f4f6;
+  color: #111827;
+  border-radius: 6px;
+  font-weight: 500;
+  margin-right: 8px;
+}
+.tab-button.active {
+  background-color: #e5e7eb;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+.tab-content {
+  display: none;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background-color: white;
+  margin-top: 16px;
+}
 </style>
 `;
 
@@ -108,24 +123,15 @@ export default function TabGenerator() {
     const script = `
 <script>
 function openTab(evt, tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
-    
-    const activeContent = document.getElementById(tabId);
-    if (activeContent) {
-        activeContent.style.display = 'block';
-    }
-    
-    if (evt) {
-        evt.classList.add('active');
-    }
+  document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+  const activeContent = document.getElementById(tabId);
+  if (activeContent) activeContent.style.display = 'block';
+  if (evt) evt.classList.add('active');
 }
-
 document.addEventListener('DOMContentLoaded', () => {
-    const firstButton = document.querySelector('.tab-button');
-    if (firstButton) {
-        openTab(firstButton, firstButton.getAttribute('data-tab-id'));
-    }
+  const firstButton = document.querySelector('.tab-button');
+  if (firstButton) openTab(firstButton, firstButton.getAttribute('data-tab-id'));
 });
 </script>
 `;
@@ -151,7 +157,7 @@ ${script}
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy: ", err);
+      console.error("Failed to copy:", err);
     }
   };
 
@@ -170,13 +176,30 @@ ${script}
           Tab Generator
         </h1>
 
+        {/* Demo Preset Selector */}
+        <div className="flex space-x-2 mb-4">
+          <span className="self-center">Demo Tabs:</span>
+          {[1, 3, 5].map((count) => (
+            <button
+              key={count}
+              onClick={() => {
+                setTabs(demoPresets[count]);
+                setActiveTabId(demoPresets[count][0].id);
+              }}
+              className="px-3 py-1 border rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            >
+              {count} Tab{count > 1 ? "s" : ""}
+            </button>
+          ))}
+        </div>
+
         <div role="main" className="w-full mx-auto space-y-8">
           {/* Grid Panels */}
           <div className="grid gap-8 md:grid-cols-2">
-            {/* Left Panel */}
+            {/* Define Tabs Panel */}
             <div
-              className={`p-6 rounded-lg shadow-sm border flex flex-col w-full flex-1 ${
-                isDarkMode ? "bg-gray-900" : "bg-white"
+              className={`p-6 rounded-lg shadow-lg border flex flex-col w-full flex-1 ${
+                isDarkMode ? "bg-gray-700" : "bg-blue-50"
               }`}
             >
               <h2
@@ -204,7 +227,7 @@ ${script}
                           ? "bg-blue-500 text-white"
                           : isDarkMode
                           ? "bg-gray-700 text-gray-300"
-                          : "bg-gray-100 text-gray-800"
+                          : "bg-white text-gray-900"
                       }`}
                     >
                       {tab.header}
@@ -229,10 +252,10 @@ ${script}
               </div>
             </div>
 
-            {/* Right Panel */}
+            {/* Edit Tab Content Panel */}
             <div
-              className={`p-6 rounded-lg shadow-sm border flex flex-col w-full flex-1 ${
-                isDarkMode ? "bg-gray-900" : "bg-white"
+              className={`p-6 rounded-lg shadow-lg border flex flex-col w-full flex-1 ${
+                isDarkMode ? "bg-gray-700" : "bg-blue-50"
               }`}
             >
               <h2
@@ -268,10 +291,10 @@ ${script}
             </div>
           </div>
 
-          {/* Generated HTML */}
+          {/* Generated HTML Panel */}
           <div
-            className={`p-6 rounded-lg shadow-sm border w-full ${
-              isDarkMode ? "bg-gray-900" : "bg-white"
+            className={`p-6 rounded-lg shadow-lg border w-full ${
+              isDarkMode ? "bg-gray-700" : "bg-blue-50"
             }`}
           >
             <div className="flex justify-between items-center mb-4">
