@@ -278,7 +278,7 @@ ${script}
               <h2 className="text-2xl font-semibold">Generated HTML Output</h2>
               <button
                 onClick={() => setShowHtml(!showHtml)}
-                className="py-2 px-4 border rounded-md"
+                className={`py-2 px-4 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100`}
               >
                 {showHtml ? "Hide HTML" : "Show HTML"}
               </button>
