@@ -151,6 +151,16 @@ ${script}
 </html>`;
   };
 
+  const preloadTabs = (count: number) => {
+    const exampleTabs: Tab[] = Array.from({ length: count }, (_, i) => ({
+      id: i + 1,
+      header: `Step ${i + 1}`,
+      content: `Step ${i + 1} Content`,
+    }));
+    setTabs(exampleTabs);
+    setActiveTabId(exampleTabs[0]?.id || 0);
+  };
+
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(generateHTML());
@@ -209,6 +219,30 @@ ${script}
               >
                 Define Your Tabs
               </h2>
+
+              {/* Demo Tabs Buttons */}
+              <div className="flex space-x-2 mb-4">
+                <span className="self-center font-semibold">Demo Tabs:</span>
+                <button
+                  onClick={() => preloadTabs(1)}
+                  className="py-1 px-2 border rounded-md"
+                >
+                  1 Tab
+                </button>
+                <button
+                  onClick={() => preloadTabs(3)}
+                  className="py-1 px-2 border rounded-md"
+                >
+                  3 Tabs
+                </button>
+                <button
+                  onClick={() => preloadTabs(5)}
+                  className="py-1 px-2 border rounded-md"
+                >
+                  5 Tabs
+                </button>
+              </div>
+
               <div
                 role="tablist"
                 aria-label="Tab Headers"
