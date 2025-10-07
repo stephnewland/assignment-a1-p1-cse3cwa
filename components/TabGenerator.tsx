@@ -29,16 +29,22 @@ export default function TabGenerator() {
   const [activeTabId, setActiveTabId] = useState<number | null>(null);
   const [showHtml, setShowHtml] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    setIsDarkMode(document.documentElement.classList.contains("dark"));
+    const initialIsDark = document.documentElement.classList.contains("dark");
+    setIsDarkMode(initialIsDark);
+    setIsInitialized(true);
+
     const observer = new MutationObserver(() => {
       setIsDarkMode(document.documentElement.classList.contains("dark"));
     });
     observer.observe(document.documentElement, { attributes: true });
     return () => observer.disconnect();
   }, []);
+
+  if (isDarkMode === null || !isInitialized) return null;
 
   const addTab = () => {
     const newId = tabs.length > 0 ? Math.max(...tabs.map((t) => t.id)) + 1 : 1;
@@ -81,45 +87,23 @@ export default function TabGenerator() {
   const generateHTML = () => {
     const styleBlock = `
 <style>
-.tab-button {
-  padding: 10px 15px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: #f3f4f6;
-  color: #111827;
-  border-radius: 6px;
-  font-weight: 500;
-  margin-right: 8px;
-}
-.tab-button.active {
-  background-color: #e5e7eb;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-.tab-content {
-  display: none;
-  padding: 20px;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  background-color: white;
-  margin-top: 16px;
-}
+.tab-button { padding: 10px 15px; cursor: pointer; border: 1px solid #ccc; background-color: #f3f4f6; color: #111827; border-radius: 6px; font-weight: 500; margin-right: 8px; }
+.tab-button.active { background-color: #e5e7eb; box-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+.tab-content { display: none; padding: 20px; border: 1px solid #e2e8f0; border-radius: 6px; background-color: white; margin-top: 16px; }
 </style>
 `;
-
     const buttons = tabs
       .map(
         (t) =>
           `<button class="tab-button" onclick="openTab(this, 'tab-${t.id}')" data-tab-id="tab-${t.id}">${t.header}</button>`
       )
       .join("\n");
-
     const contents = tabs
       .map(
         (t) =>
           `<div id="tab-${t.id}" class="tab-content"><h3>${t.header}</h3><p>${t.content}</p></div>`
       )
       .join("\n");
-
     const script = `
 <script>
 function openTab(evt, tabId) {
@@ -135,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 `;
-
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,25 +166,8 @@ ${script}
             isDarkMode ? "text-gray-100" : "text-gray-900"
           }`}
         >
-          a Tab Generator
+          Tab Generator
         </h1>
-
-        {/* Demo Preset Selector */}
-        <div className="flex space-x-2 mb-4">
-          <span className="self-center">Demo Tabs:</span>
-          {[1, 3, 5].map((count) => (
-            <button
-              key={count}
-              onClick={() => {
-                setTabs(demoPresets[count]);
-                setActiveTabId(demoPresets[count][0].id);
-              }}
-              className="px-3 py-1 border rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            >
-              {count} Tab{count > 1 ? "s" : ""}
-            </button>
-          ))}
-        </div>
 
         <div role="main" className="w-full mx-auto space-y-8">
           {/* Grid Panels */}
@@ -209,18 +175,16 @@ ${script}
             {/* Define Tabs Panel */}
             <div
               className={`p-6 rounded-lg shadow-lg border flex flex-col w-full flex-1 ${
-                isDarkMode ? "bg-gray-700" : "bg-blue-50"
+                isDarkMode
+                  ? "bg-gray-700 text-gray-100"
+                  : "bg-blue-50 text-gray-900"
               }`}
             >
-              <h2
-                className={`text-2xl font-semibold mb-4 text-center ${
-                  isDarkMode ? "text-gray-200" : "text-gray-800"
-                }`}
-              >
+              <h2 className="text-2xl font-semibold mb-4 text-center">
                 Define Your Tabs
               </h2>
 
-              {/* Demo Tabs Buttons */}
+              {/* Demo Tabs Buttons (kept only here) */}
               <div className="flex space-x-2 mb-4">
                 <span className="self-center font-semibold">Demo Tabs:</span>
                 <button
@@ -289,14 +253,12 @@ ${script}
             {/* Edit Tab Content Panel */}
             <div
               className={`p-6 rounded-lg shadow-lg border flex flex-col w-full flex-1 ${
-                isDarkMode ? "bg-gray-700" : "bg-blue-50"
+                isDarkMode
+                  ? "bg-gray-700 text-gray-100"
+                  : "bg-blue-50 text-gray-900"
               }`}
             >
-              <h2
-                className={`text-2xl font-semibold mb-4 text-center ${
-                  isDarkMode ? "text-gray-200" : "text-gray-800"
-                }`}
-              >
+              <h2 className="text-2xl font-semibold mb-4 text-center">
                 Edit Tab Content
               </h2>
               {tabs
@@ -328,14 +290,16 @@ ${script}
           {/* Generated HTML Panel */}
           <div
             className={`p-6 rounded-lg shadow-lg border w-full ${
-              isDarkMode ? "bg-gray-700" : "bg-blue-50"
+              isDarkMode
+                ? "bg-gray-700 text-gray-100"
+                : "bg-blue-50 text-gray-900"
             }`}
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold">Generated HTML Output</h2>
               <button
                 onClick={() => setShowHtml(!showHtml)}
-                className={`py-2 px-4 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100`}
+                className="py-2 px-4 border rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               >
                 {showHtml ? "Hide HTML" : "Show HTML"}
               </button>
