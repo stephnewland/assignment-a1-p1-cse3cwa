@@ -35,7 +35,7 @@ export default function RootLayout({
       >
         <Header studentNumber={studentNumber} />
 
-        {/* Change to a full-width container to fix the positioning */}
+        {/* Full-width container for breadcrumbs */}
         <div className="w-full px-4 py-2">
           <Breadcrumbs />
         </div>
