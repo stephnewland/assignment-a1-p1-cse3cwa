@@ -33,6 +33,10 @@ export default function TabGenerator() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
+    console.log("isDarkMode:", isDarkMode);
+  }, [isDarkMode]);
+
+  useEffect(() => {
     const initialIsDark = document.documentElement.classList.contains("dark");
     setIsDarkMode(initialIsDark);
     setIsInitialized(true);
