@@ -12,16 +12,27 @@ html {
 }
 
 body {
-  background-color: #ffffff;
-  color: #000000;
+  /*background-color: #ffffff;*/
+  /*color: #000000;*/
+  background-color: #f3f4f6; /* Tailwind gray-100 */
+  color: #1f2937; /* Tailwind gray-800 */
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark body {
-  background-color: #121212;
+  /*background-color: #121212;*/
   /*background-color: transparent;*/
-  color: #f0f0f0;
+  /*color: #f0f0f0;*/
+  background-color: #111827; /* Tailwind gray-900 */
+  color: #f3f4f6; /* Tailwind gray-100 */
+}
+
+.custom-paragraph {
+  color: #374151; /* gray-700 */
+}
+.dark .custom-paragraph {
+  color: #e5e7eb; /* gray-200 */
 }
 
 .dark header,

@@ -21,13 +21,13 @@ export default function AboutContent() {
       ref={containerRef as React.RefObject<HTMLDivElement>}
     >
       <div className="container mx-auto">
-        <div className="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-600 rounded-xl p-8 shadow-lg">
+        <div>
           <header className="mb-12 text-center pt-2 pb-1">
-            <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-200 mb-4">
+            <h1 className="text-5xl font-bold text-blue-600 dark:text-blue-400 mb-4">
               About CSE3CWA
             </h1>
 
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+            <p className="text-xl max-w-2xl mx-auto mb-6 custom-paragraph">
               A comprehensive web application demonstrating modern full-stack
               development principles and practices.
             </p>
