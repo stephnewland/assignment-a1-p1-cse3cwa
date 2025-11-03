@@ -446,7 +446,7 @@ ${script}
               )}
               {tabs.length === 0 && (
                 <p className="text-center text-lg text-gray-500 dark:text-gray-400 mt-10">
-                  Start by adding a tab or using a preset above!
+                  Start by adding a tab or using a preset from the left!
                 </p>
               )}
             </div>

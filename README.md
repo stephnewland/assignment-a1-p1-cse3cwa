@@ -86,4 +86,3 @@ Building upon the initial front-end architecture from Assignment 1, **Assignment
 ### AI Generated Content
 
 - Microsoft CoPilot helped suggest what content was required to go in this README file.
-- _\[Add specific references for any Generative AI used in Assignment 2 code here, e.g., "ChatGPT 4.0 was used to draft the initial boilerplate for the Dockerfile."]_
