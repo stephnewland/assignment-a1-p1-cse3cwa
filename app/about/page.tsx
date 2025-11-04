@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { useKeyboardNavigation } from "../../hooks/useKeyboardNavigation";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function AboutContent() {
   const { containerRef } = useKeyboardNavigation({
@@ -217,6 +218,7 @@ export default function AboutContent() {
                 This video demonstrates how to use the Tab Generator to create
                 accessible HTML5 tab structures that can be deployed directly to
                 Moodle LMS.
+                <SpeedInsights />
               </p>
             </div>
           </section>
