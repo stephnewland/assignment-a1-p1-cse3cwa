@@ -24,6 +24,20 @@ const getMessageIcon = (props: FineAlertProps) => {
   return "📩"; // generic new messages or non-urgent legal (Yellow)
 };
 
+// NEW: Function to determine the text for the primary action button
+const getActionText = (
+  type: "legal" | "distraction",
+  subtype?: "family" | "boss" | "agile"
+) => {
+  if (type === "legal" || subtype === "boss" || subtype === "agile") {
+    return "✅ Fixed";
+  }
+  if (subtype === "family") {
+    return "👍 OK";
+  }
+  return "✅ Fixed"; // Default for any uncategorized message
+};
+
 export default function FineAlert({
   message,
   law,
@@ -88,6 +102,8 @@ export default function FineAlert({
     onClose,
   });
 
+  const actionText = getActionText(type, subtype); // Get the dynamic text
+
   return (
     <div className={`${containerClass}`}>
       {/* 1. HEADER CONTENT */}
@@ -117,13 +133,13 @@ export default function FineAlert({
         >
           ❌ Ignore
         </button>
-        {/* FIX Button (Middle) */}
+        {/* FIX/OK Button (Middle) - Uses dynamic text */}
         <button
           onClick={onClose}
           className={`${buttonBaseClass} ${fixButtonClass}`}
           title="Address the issue and remove this alert."
         >
-          ✅ Fix
+          {actionText}
         </button>
         {/* CLOSE Button (Rightmost) */}
         <button

@@ -111,8 +111,6 @@ export default function MessageQueue({ onCourtTriggered }: MessageQueueProps) {
 
   // Distractions: random 20-30s
   // ------------------------
-  // Randomized distraction enqueue every 20–30 seconds
-  // ------------------------
   useEffect(() => {
     if (!hydrated) return;
 
@@ -235,7 +233,8 @@ export default function MessageQueue({ onCourtTriggered }: MessageQueueProps) {
       // Use 'fixed' to keep the messages visible even if the user scrolls the main content
       className="message-queue fixed top-4 right-4 h-full w-full max-w-sm pointer-events-none"
     >
-      <div className="flex flex-col space-y-4 items-end pointer-events-auto">
+      <div className="flex flex-col space-y-4 items-end pointer-events-auto max-h-screen overflow-y-auto">
+        {/*<div className="flex flex-col space-y-4 items-end pointer-events-auto"*/}
         {activeMessages.map((msg) => (
           <FineAlert
             key={generateKey(msg)}
